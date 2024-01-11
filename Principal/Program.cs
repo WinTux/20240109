@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Principal.Repos;
 
 namespace Principal
@@ -11,6 +12,8 @@ namespace Principal
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddDbContext<RestaurantDbContext>(op => 
+                op.UseSqlServer(builder.Configuration.GetConnectionString("una_conexion")));
             builder.Services.AddScoped<IPlatoRepository,ImplPlatoRepository>();
 
             var app = builder.Build();
