@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Principal.Models
+namespace Principal.DTO
 {
-    [Table("Plato")]
-    public class Plato
+    public class PlatoUpdateDTO
     {
         [Key]
         [Required]
-        public int id {  get; set; }
+        public int id { get; set; }
         [Required]
         public string nombre { get; set; }
         public string? ingredientes { get; set; }

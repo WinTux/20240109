@@ -15,6 +15,7 @@ namespace Principal
             builder.Services.AddDbContext<RestaurantDbContext>(op => 
                 op.UseSqlServer(builder.Configuration.GetConnectionString("una_conexion")));
             builder.Services.AddScoped<IPlatoRepository,ImplPlatoRepository>();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();
 

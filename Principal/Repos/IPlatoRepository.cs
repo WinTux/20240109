@@ -6,5 +6,8 @@ namespace Principal.Repos
     {
         public IEnumerable<Plato> GetPlatos();
         public Plato GetPlatoById(int id);
+        void AddPlato(Plato plato);
+        bool Guardar();
+        void UpdatePlato(Plato plato);
     }
 }

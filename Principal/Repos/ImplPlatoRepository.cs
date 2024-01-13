@@ -9,6 +9,14 @@ namespace Principal.Repos
         {
             _context = context;   
         }
+
+        public void AddPlato(Plato plato)
+        {
+            if(plato == null)
+                throw new ArgumentNullException(nameof(plato));
+            _context.platos.Add(plato);
+        }
+
         public Plato GetPlatoById(int codigo)
         {
             return _context.platos.FirstOrDefault(p => p.id == codigo);
@@ -17,6 +25,16 @@ namespace Principal.Repos
         public IEnumerable<Plato> GetPlatos()
         {
             return _context.platos.ToList();
+        }
+
+        public bool Guardar()
+        {
+            return (_context.SaveChanges() > -1);
+        }
+
+        public void UpdatePlato(Plato plato)
+        {
+            //No hacemos nada porque DbContext se encarga
         }
     }
 }
