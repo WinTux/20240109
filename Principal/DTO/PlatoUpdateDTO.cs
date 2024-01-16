@@ -8,6 +8,7 @@ namespace Principal.DTO
         [Required]
         public int id { get; set; }
         [Required]
+        [MaxLength(50)]
         public string nombre { get; set; }
         public string? ingredientes { get; set; }
         [Required]

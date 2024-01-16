@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Principal.Repos;
+using Newtonsoft.Json.Serialization;
 
 namespace Principal
 {
@@ -11,11 +12,13 @@ namespace Principal
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson( s => 
+            s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
             builder.Services.AddDbContext<RestaurantDbContext>(op => 
                 op.UseSqlServer(builder.Configuration.GetConnectionString("una_conexion")));
             builder.Services.AddScoped<IPlatoRepository,ImplPlatoRepository>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
 
             var app = builder.Build();
 

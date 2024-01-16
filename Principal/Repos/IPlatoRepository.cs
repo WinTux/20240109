@@ -9,5 +9,6 @@ namespace Principal.Repos
         void AddPlato(Plato plato);
         bool Guardar();
         void UpdatePlato(Plato plato);
+        void EliminarPlato(Plato plato);
     }
 }

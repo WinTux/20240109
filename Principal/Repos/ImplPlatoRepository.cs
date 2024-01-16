@@ -17,6 +17,13 @@ namespace Principal.Repos
             _context.platos.Add(plato);
         }
 
+        public void EliminarPlato(Plato plato)
+        {
+            if (plato == null)
+                throw new ArgumentNullException(nameof(plato));
+            _context.platos.Remove(plato);
+        }
+
         public Plato GetPlatoById(int codigo)
         {
             return _context.platos.FirstOrDefault(p => p.id == codigo);

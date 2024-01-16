@@ -11,6 +11,7 @@ namespace Principal.Perfil
             CreateMap<Plato, PlatoReadDTO>();// -->
             CreateMap<PlatoCreateDTO, Plato>();// -->
             CreateMap<PlatoUpdateDTO, Plato>();// -->
+            CreateMap<Plato, PlatoUpdateDTO>();
         }
     }
 }
