@@ -1,6 +1,6 @@
 @Principal_HostAddress = http://localhost:5101
 
-GET {{Principal_HostAddress}}/weatherforecast/
+GET {{Principal_HostAddress}}/api/plato
 Accept: application/json
 
 ###

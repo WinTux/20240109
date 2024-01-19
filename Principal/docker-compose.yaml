@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  webapp:
+    image: rusok/restaurante:3.0
+    build: .
+    ports:
+      - 8089:8080
+      - 8090:8081
+    environment:
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}\Microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
+      
