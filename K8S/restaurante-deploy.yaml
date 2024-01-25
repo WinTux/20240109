@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurante-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurantitoservice
+  template:
+    metadata:
+      labels:
+        app: restaurantitoservice
+    spec:
+      containers:
+        - name: restaurantitoservice
+          image: rusok/restaurante:4.0
+          imagePullPolicy: IfNotPresent
