@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Principal.Repos;
 using Newtonsoft.Json.Serialization;
+using Principal.ComunicacionSync.Http;
 
 namespace Principal
 {
@@ -16,6 +17,7 @@ namespace Principal
             s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
             builder.Services.AddDbContext<RestaurantDbContext>(op => 
                 op.UseSqlServer(builder.Configuration.GetConnectionString("una_conexion")));
+            builder.Services.AddHttpClient<ISecundarioPedidoCliente, ImplHttpSecundarioPedidoCliente>();
             builder.Services.AddScoped<IPlatoRepository,ImplPlatoRepository>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             

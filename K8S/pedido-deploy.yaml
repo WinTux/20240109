@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: restaurante-deploy
+  name: pedido-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: restaurantitoservice
+      app: pedidoservice
   template:
     metadata:
       labels:
-        app: restaurantitoservice
+        app: pedidoservice
     spec:
       containers:
-        - name: restaurantitoservice
-          image: rusok/restaurante:5.1
+        - name: pedidoservice
+          image: rusok/secundario:1.0
           imagePullPolicy: IfNotPresent
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: restaurante-clusterip-service
+  name: pedido-clusterip-service
 spec:
   type: ClusterIP
   selector:
-    app: restaurantitoservice
+    app: pedidoservice
   ports:
-    - name: restaurantitoservice
+    - name: pedidoservice
       protocol: TCP
       port: 8080
       targetPort: 8080

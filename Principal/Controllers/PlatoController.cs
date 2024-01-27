@@ -4,6 +4,7 @@ using Principal.DTO;
 using Principal.Models;
 using Principal.Repos;
 using Microsoft.AspNetCore.JsonPatch;
+using Principal.ComunicacionSync.Http;
 
 namespace Principal.Controllers
 {
@@ -13,9 +14,11 @@ namespace Principal.Controllers
     {
         private readonly IPlatoRepository repo;
         private readonly IMapper mapper;
-        public PlatoController(IPlatoRepository repo, IMapper mapper) {
+        private readonly ISecundarioPedidoCliente cliente;
+        public PlatoController(IPlatoRepository repo, IMapper mapper, ISecundarioPedidoCliente secundarioPedidoCliente) {
             this.repo = repo;
             this.mapper = mapper;
+            cliente = secundarioPedidoCliente;
         }
         [HttpGet]
         public ActionResult<IEnumerable<PlatoReadDTO>> GetPlatos()
@@ -33,11 +36,17 @@ namespace Principal.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PlatoReadDTO> SetPlato(PlatoCreateDTO platoCreateDTO) {
+        public async Task<ActionResult<PlatoReadDTO>> SetPlato(PlatoCreateDTO platoCreateDTO) {
             Plato plato = mapper.Map<Plato>(platoCreateDTO);
             repo.AddPlato(plato);
             repo.Guardar();
             PlatoReadDTO platoRetorno = mapper.Map<PlatoReadDTO>(plato);
+            try { 
+                await cliente.ComunicarseConSecundario(platoRetorno);
+            }catch(Exception ex)
+            {
+                Console.WriteLine($"Ocurrió un error al comunicarse con Secundario de forma sincronizada: {ex.Message}");
+            }
             return CreatedAtRoute(nameof(GetPlatoById), new { id = plato.id }, platoRetorno);
         }
 
