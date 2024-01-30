@@ -24,8 +24,13 @@ namespace Principal
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-
+            //Esta en mal lugar
+            /*if (!app.Environment.IsDevelopment())
+            {
+                Console.WriteLine("Conectandose a DDBB produccion");
+                builder.Services.AddDbContext<RestaurantDbContext>(op=>op.UseSqlServer(builder.Configuration.GetConnectionString("RestaurantProd")));
+            }
+            */
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

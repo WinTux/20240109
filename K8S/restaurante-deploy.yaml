@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: restaurantitoservice
-          image: rusok/restaurante:5.1
+          image: rusok/restaurante:5.2
           imagePullPolicy: IfNotPresent
 ---
 apiVersion: v1
