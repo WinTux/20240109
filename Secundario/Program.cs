@@ -1,3 +1,5 @@
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 namespace Secundario
 {
     public class Program
@@ -9,7 +11,8 @@ namespace Secundario
             // Add services to the container.
 
             builder.Services.AddControllers();
-
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddDbContext<PedidoDbContext>(op=> op.UseInMemoryDatabase("miDb"));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
