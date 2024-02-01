@@ -5,6 +5,7 @@ using Principal.Models;
 using Principal.Repos;
 using Microsoft.AspNetCore.JsonPatch;
 using Principal.ComunicacionSync.Http;
+using Principal.ComunicacionAsync;
 
 namespace Principal.Controllers
 {
@@ -15,10 +16,12 @@ namespace Principal.Controllers
         private readonly IPlatoRepository repo;
         private readonly IMapper mapper;
         private readonly ISecundarioPedidoCliente cliente;
-        public PlatoController(IPlatoRepository repo, IMapper mapper, ISecundarioPedidoCliente secundarioPedidoCliente) {
+        private readonly IBusDeMensajesCliente busDeMensajesCliente;
+        public PlatoController(IPlatoRepository repo, IMapper mapper, ISecundarioPedidoCliente secundarioPedidoCliente, IBusDeMensajesCliente busDeMensajesCliente) {
             this.repo = repo;
             this.mapper = mapper;
             cliente = secundarioPedidoCliente;
+            this.busDeMensajesCliente = busDeMensajesCliente;
         }
         [HttpGet]
         public ActionResult<IEnumerable<PlatoReadDTO>> GetPlatos()
@@ -47,6 +50,18 @@ namespace Principal.Controllers
             {
                 Console.WriteLine($"Ocurrió un error al comunicarse con Secundario de forma sincronizada: {ex.Message}");
             }
+
+            try
+            {
+                var platoPublisherDTO = mapper.Map<PlatoPublisherDTO>(platoRetorno);
+                platoPublisherDTO.tipoEvento = "plato_publicado";
+                busDeMensajesCliente.PublicarNuevoPlato(platoPublisherDTO);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ocurrió un error al comunicarse con Secundario de forma no sincronizada: {ex.Message}");
+            }
+
             return CreatedAtRoute(nameof(GetPlatoById), new { id = plato.id }, platoRetorno);
         }
 

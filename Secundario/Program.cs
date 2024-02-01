@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Secundario.Conexion;
 namespace Secundario
 {
     public class Program

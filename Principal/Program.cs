@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Principal.Repos;
 using Newtonsoft.Json.Serialization;
 using Principal.ComunicacionSync.Http;
+using Principal.ComunicacionAsync;
 
 namespace Principal
 {
@@ -20,7 +21,7 @@ namespace Principal
             builder.Services.AddHttpClient<ISecundarioPedidoCliente, ImplHttpSecundarioPedidoCliente>();
             builder.Services.AddScoped<IPlatoRepository,ImplPlatoRepository>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            
+            builder.Services.AddSingleton<IBusDeMensajesCliente, ImplBusDeMensajesCliente>();
 
             var app = builder.Build();
 
