@@ -11,6 +11,10 @@ namespace Secundario.DTO_perfiles
             CreateMap<Plato, PlatoReadDTO>();
             CreateMap<DetalleCreateDTO, DetalleReadDTO>();
             CreateMap<DetalleCreateDTO, Detalle>();
+            CreateMap<PlatoPublisherDTO, Plato>().ForMember(
+                destino => destino.fid,
+                opcion => opcion.MapFrom(fuente => fuente.id)
+                );
         }
     }
 }

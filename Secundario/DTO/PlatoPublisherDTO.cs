@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Principal.DTO
+﻿namespace Secundario.DTO
 {
     public class PlatoPublisherDTO
     {

@@ -60,5 +60,10 @@ namespace Secundario.Conexion
         {
             return (_context.SaveChanges() >= 0);
         }
+
+        public bool ExistePlatoForaneo(int fid)
+        {
+            return _context.platos.Any(p => p.fid == fid);
+        }
     }
 }

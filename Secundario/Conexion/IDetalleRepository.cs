@@ -16,5 +16,7 @@ namespace Secundario.Conexion
         void CrearDetalle(int idplato, Detalle detalle);
 
         bool Guardar();
+
+        bool ExistePlatoForaneo(int fid);
     }
 }
